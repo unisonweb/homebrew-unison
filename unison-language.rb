@@ -2,14 +2,14 @@ class UnisonLanguage < Formula
   desc "The Unison Language and Codebase Manager."
   homepage "https://unisonweb.org"
 
-  version "1.0.M1a"
+  version "1.0.M1b"
 
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM1a/unison-osx.tar.gz"
-    sha256 "a1fd7210b02a4d389bb89d39538767b70cb5ddb1af5045b876c315fa87d1e6db"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM1b/unison-osx.tar.gz"
+    sha256 "287da570aab68b94be10df2b857aa08136a264cfbf0c00fbd7f9f72ed783dc89"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM1a/unison-linux64.tar.gz"
-    sha256 "4ba52595d2d89772327c689f08728e5f19499f3181b712b8708e71da2fccf4e6"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM1b/unison-linux64.tar.gz"
+    sha256 "921c0bf9bb592a843b00bd84b66e24b8a3b440fbc9bde960ee9e2004470eab20"
   end
 
   def install
