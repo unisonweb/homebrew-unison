@@ -2,14 +2,14 @@ class UnisonLanguage < Formula
   desc "The Unison Language and Codebase Manager."
   homepage "https://unisonweb.org"
 
-  version "1.0.azure42"
+  version "1.0.azure43"
 
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/release%2Fazure42/unison-osx.tar.gz"
-    sha256 "238fb9cc96cc5bfdc018fe812aac53fe738da9a0cdf668d1c20acf62abe26927"
+    url "https://github.com/unisonweb/unison/releases/download/release%2Fazure43/unison-osx.tar.gz"
+    sha256 "5b275222db1d0b58153f99a4a65f314d2dd35b6600fbbe9ee5442326b31284c8"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/release%2Fazure42/unison-linux64.tar.gz"
-    sha256 "5f6d059c41c670086fc099b1fa474600598dd0602c2eec201a7d871fb51443e2"
+    url "https://github.com/unisonweb/unison/releases/download/release%2Fazure43/unison-linux64.tar.gz"
+    sha256 "f0c936d297219c1c427eac4cc20ec0d5910d74212f970fca1dc4da4e223df93a"
   end
 
   def install
