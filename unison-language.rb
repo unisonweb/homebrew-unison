@@ -6,10 +6,10 @@ class UnisonLanguage < Formula
 
   if OS.mac?
     url "https://github.com/unisonweb/unison/releases/download/release%2Fmerge/unison-osx.tar.gz"
-    sha256 "607e79cf43e314dff9a89bb0e2eebbb35e3f47c6306e1325780f8c04bb2a4f8d"
+    sha256 "0f711a35ab0baf295919daaf1b0a291ba52165273cfba2d0a72322773c473d05"
   elsif OS.linux?
     url "https://github.com/unisonweb/unison/releases/download/release%2Fmerge/unison-linux64.tar.gz"
-    sha256 "7601c87343f37147a887542194cd7f0fefb573e03333bd534b85103b0dfff15b"
+    sha256 "06c313981e13f94e2352e9015fa4f6773b0eecbf24bb312248b35e027550522e"
   end
 
   def install
