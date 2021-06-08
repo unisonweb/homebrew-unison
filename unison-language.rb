@@ -3,17 +3,16 @@ class UnisonLanguage < Formula
   homepage "https://unisonweb.org"
   license "MIT"
 
-  version "1.0.M2"
-  
+  version "1.0.M2f"
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/M2-macOS/unison-macOS.tar.gz"
-    sha256 "bfbace7cca55cb6a9464b089bf9bea8eabda14907d184fc7b47b92d3a10d8e71"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM2f/ucm-macos.tar.gz"
+    sha256 "98a0a1b5a15363296b685939cf61e108d761f82156b09947e2a138982f3f3239"
 
     head "https://github.com/unisonweb/unison/releases/download/latest-macOS/unison-macOS.tar.gz"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/M2-Linux/unison-Linux.tar.gz"
-    sha256 "862b160ee4a4b2ba165fbf871710eb9de9b45824705073909b2a297f5f499b02"
-    
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM2f/ucm-linux.tar.gz"
+    sha256 "ddaef9572e540e1dee8c765fc1a710bad6d7d4c8edc8f577c8ba20141c6a16ef"
+
     head "https://github.com/unisonweb/unison/releases/download/latest-Linux/unison-Linux.tar.gz"
   end
 
