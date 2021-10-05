@@ -3,7 +3,7 @@ class UnisonLanguage < Formula
   homepage "https://unisonweb.org"
   license "MIT"
 
-  version "1.0.M2h"
+  version "1.0.M2i"
   if OS.mac?
     url "https://github.com/unisonweb/unison/releases/download/release%2FM2i/ucm-macos.tar.gz"
     sha256 "85f244bdda22cecc3d9df83bed1c7f693d34463e96d3fc59694dd57909b99218"
