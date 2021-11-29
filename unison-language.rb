@@ -2,6 +2,7 @@ class UnisonLanguage < Formula
   desc "The Unison Language and Codebase Manager."
   homepage "https://unisonweb.org"
   license "MIT"
+  depends_on "fzf" => :recommended
 
   version "1.0.M2k"
   if OS.mac?
