@@ -16,10 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: make download dir
-        run: "mkdir /tmp/ucm"
-
-      - name: "download artifacts"
+      - name: "Download artifacts and bump homebrew version"
         run: |
           tries=24
           for (( i = 0; i < $tries; i++ )); do
@@ -32,5 +29,8 @@ jobs:
           done
           linux_sha=$(cat ucm-linux.tar.gz | shasum -a 256 | cut -f1 -d" ")
           macos_sha=$(cat ucm-macos.tar.gz | shasum -a 256 | cut -f1 -d" ")
-          cat unison-language.rb.template | sed -n "{s/{{macos_sha}}/${macos_sha}/g;}" > out
-
+          # Generate formula with correct version and SHAs.
+          cat unison-language.rb.template | sed "s/{{macos_sha}}/${macos_sha}/g;s/{{linux_sha}}/${linux_sha}/g;s/{{version}}/${version}/g;" > unison-language.rb
+          git add unison-language.rb
+          git commit -m "release/${version}"
+          git push origin master
