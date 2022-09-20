@@ -1,0 +1,36 @@
+name: "release_version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release Version'
+        required: true
+        type: string
+
+jobs:
+  update_formula:
+    name: "update_formula"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: make download dir
+        run: "mkdir /tmp/ucm"
+
+      - name: "download artifacts"
+        run: |
+          tries=24
+          for (( i = 0; i < $tries; i++ )); do
+            # It's possible for this job to be kicked off before the release has been created,
+            # We'll keep trying for 2 hrs, since Windows can take a long time to build.
+            if gh release download --repo unisonweb/unison release/${{inputs.version}} ; then
+              break
+            echo "Couldn't download release artifacts, release may not yet exist. Trying again in 5 minutes."
+            sleep 300 # If we failed, wait for 5 minutes
+          done
+          linux_sha=$(cat ucm-linux.tar.gz | shasum -a 256 | cut -f1 -d" ")
+          macos_sha=$(cat ucm-macos.tar.gz | shasum -a 256 | cut -f1 -d" ")
+          cat unison-language.rb.template | sed -n "{s/{{macos_sha}}/${macos_sha}/g;}" > out
+
