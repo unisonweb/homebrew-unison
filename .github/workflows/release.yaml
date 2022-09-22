@@ -1,0 +1,37 @@
+name: "release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release Version'
+        required: true
+        type: string
+
+jobs:
+  update_formula:
+    name: "update_formula"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Download artifacts and bump homebrew version"
+        run: |
+          tries=24
+          for (( i = 0; i < $tries; i++ )); do
+            # It's possible for this job to be kicked off before the release has been created,
+            # We'll keep trying for 2 hrs, since Windows can take a long time to build.
+            if gh release download --repo unisonweb/unison "release/${{inputs.version}}"  --pattern "ucm-*" ; then
+              break
+            fi
+            echo "Couldn't download release artifacts, release may not yet exist. Trying again in 5 minutes."
+            sleep 300 # If we failed, wait for 5 minutes
+          done
+          linux_sha=$(shasum -a 256 < ucm-linux.tar.gz | cut -f1 -d" ")
+          macos_sha=$(shasum -a 256 < ucm-macos.tar.gz | cut -f1 -d" ")
+          # Generate formula with correct version and SHAs.
+          sed "s/{{macos_sha}}/${macos_sha}/g;s/{{linux_sha}}/${linux_sha}/g;s/{{version}}/${version}/g;" < unison-language.rb.template > unison-language.rb
+          git add unison-language.rb
+          git commit -m "release/${version}"
+          git push origin master
