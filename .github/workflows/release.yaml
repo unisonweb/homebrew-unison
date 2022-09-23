@@ -20,11 +20,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          version="${{inputs.version}}"
           tries=36
           for (( i = 0; i < $tries; i++ )); do
             # It's possible for this job to be kicked off before the release has been created,
             # We'll keep trying for 2 hrs, since Windows can take a long time to build.
-            if gh release download --repo unisonweb/unison "release/${{inputs.version}}"  --pattern "ucm-*" ; then
+            if gh release download --repo unisonweb/unison "release/${version}"  --pattern "ucm-*" ; then
               break
             fi
             echo "Couldn't download release artifacts, release may not yet exist. Trying again in 5 minutes."
