@@ -4,17 +4,17 @@ class UnisonLanguage < Formula
   license "MIT"
   depends_on "fzf" => :recommended
 
-  version "1.0.M4"
+  version "1.0.M4a"
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM4/ucm-macos.tar.gz"
-    sha256 "03c8b58c7f7e5bcf4cf976e6631d249c9b0fe5cfc47551364fd2ff1082f45125"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM4a/ucm-macos.tar.gz"
+    sha256 "5bbdd513d2c7f2e2b2f1bab8fe7e9e89666d3915bed920ed530753cb7f465e8e"
 
-    head "https://github.com/unisonweb/unison/releases/download/latest-macOS/unison-macOS.tar.gz"
+    head "https://github.com/unisonweb/unison/releases/download/latest/ucm-macos.tar.gz"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM4/ucm-linux.tar.gz"
-    sha256 "3aab4988a02c79fc367d58e1b6c6147bea8b3ea5c13c590751a321dba109049e"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM4a/ucm-linux.tar.gz"
+    sha256 "35a8ea37dfd427451a46c268bb89748021f16a8b6f3b13910e7708a87d58e504"
 
-    head "https://github.com/unisonweb/unison/releases/download/latest-Linux/unison-Linux.tar.gz"
+    head "https://github.com/unisonweb/unison/releases/download/latest/ucm-linux.tar.gz"
   end
 
   def install
