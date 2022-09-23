@@ -17,8 +17,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Download artifacts and bump homebrew version"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tries=24
+          tries=36
           for (( i = 0; i < $tries; i++ )); do
             # It's possible for this job to be kicked off before the release has been created,
             # We'll keep trying for 2 hrs, since Windows can take a long time to build.
@@ -32,6 +34,10 @@ jobs:
           macos_sha=$(shasum -a 256 < ucm-macos.tar.gz | cut -f1 -d" ")
           # Generate formula with correct version and SHAs.
           sed "s/{{macos_sha}}/${macos_sha}/g;s/{{linux_sha}}/${linux_sha}/g;s/{{version}}/${version}/g;" < unison-language.rb.template > unison-language.rb
+          # Git complains if we don't have an author.
+          git config --global user.email "chris.penner@unison.cloud"
+          git config --global user.name "Chris Penner"
+
           git add unison-language.rb
           git commit -m "release/${version}"
           git push origin master
