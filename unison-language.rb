@@ -7,12 +7,12 @@ class UnisonLanguage < Formula
   version "1.0.M4h"
   if OS.mac?
     url "https://github.com/unisonweb/unison/releases/download/release%2FM4h/ucm-macos.tar.gz"
-    sha256 ""
+    sha256 "ef2a616a9eea64191b4ca8b08720932e06c13bf680d1e516b6f6be5e3a5a6432"
 
     head "https://github.com/unisonweb/unison/releases/download/latest/ucm-macos.tar.gz"
   elsif OS.linux?
     url "https://github.com/unisonweb/unison/releases/download/release%2FM4h/ucm-linux.tar.gz"
-    sha256 ""
+    sha256 "beb669605a10c35871819ee50287a322a9e320e14531a84023d4a314dfc29e6b"
 
     head "https://github.com/unisonweb/unison/releases/download/latest/ucm-linux.tar.gz"
   end
