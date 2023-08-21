@@ -4,15 +4,15 @@ class UnisonLanguage < Formula
   license "MIT"
   depends_on "fzf" => :recommended
 
-  version "1.0.M5c"
+  version "1.0.M5d"
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM5c/ucm-macos.tar.gz"
-    sha256 "2d3a6c2b0895d19c5178b72ece8258b8c3f58cdeaff0cff3ea652a1fdb3903e8"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM5d/ucm-macos.tar.gz"
+    sha256 "3f82321809621ec35fdf737abfe49d4ab120bf81ebd9efe937f953f817001179"
 
     head "https://github.com/unisonweb/unison/releases/download/latest/ucm-macos.tar.gz"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/release%2FM5c/ucm-linux.tar.gz"
-    sha256 "ea0497f073affcae33153cf53b856fae9591f7e890c8b38eeaf211bfaa15c3f7"
+    url "https://github.com/unisonweb/unison/releases/download/release%2FM5d/ucm-linux.tar.gz"
+    sha256 "b239d3ccf0d3923f1cb7a2623ab43fc1e7bdc8695bf57a950ec5d75c03ed66a0"
 
     head "https://github.com/unisonweb/unison/releases/download/latest/ucm-linux.tar.gz"
   end
