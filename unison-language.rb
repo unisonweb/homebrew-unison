@@ -11,12 +11,12 @@ class UnisonLanguage < Formula
     url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.13/ucm-macos.tar.gz"
     sha256 "fe268bde34f051e1a17cf819d3c9e3a2990e0b9b78458df38209f49f6ccb4e7c"
 
-    head "https://github.com/unisonweb/unison/releases/download/latest/ucm-macos.tar.gz"
+    head "https://github.com/unisonweb/unison/releases/download/pre-release/ucm-macos.tar.gz"
   elsif OS.linux?
     url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.13/ucm-linux.tar.gz"
     sha256 "671b87a5ccadd33c5732296db9ef7d4f3ae5becaeb6f570bdcb35c188a3936c2"
 
-    head "https://github.com/unisonweb/unison/releases/download/latest/ucm-linux.tar.gz"
+    head "https://github.com/unisonweb/unison/releases/download/pre-release/ucm-linux.tar.gz"
   end
 
   def install
