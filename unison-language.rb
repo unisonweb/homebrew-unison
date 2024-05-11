@@ -102,6 +102,8 @@ class UnisonLanguage < Formula
         EOS
         system "ucm", "transcript.fork", "--codebase", testpath/"codebase", testpath/"compile.md"
         system testpath/"helloWorld"
+      else
+        ohai "Skipping `compile.native` test, as it requires `--with-compile-native`."
       end
     else
       (testpath/"getbase.md").write <<~EOS
