@@ -101,7 +101,7 @@ class UnisonLanguage < Formula
           ```
         EOS
         system "ucm", "transcript.fork", "--codebase", testpath/"codebase", testpath/"compile.md"
-        system testpath/"helloWorld"
+        assert_match "Hello, World!\n", shell_output("#{testpath}/helloWorld")
       else
         ohai "Skipping `compile.native` test, as it requires `--with-compile-native`."
       end
