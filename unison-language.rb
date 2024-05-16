@@ -4,6 +4,7 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 1
+  revision 1
 
   if OS.mac?
     url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.20/ucm-macos.tar.gz"
