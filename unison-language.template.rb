@@ -15,7 +15,7 @@ class UnisonLanguage < Formula
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
   end
 
-  option "with-compile-native", "experimental support for `compile.native` (requires --HEAD)"
+  option "with-compile-native", "experimental support for `compile.native`"
   depends_on "minimal-racket" if build.with? "compile-native"
   depends_on "fzf" => :recommended
 
