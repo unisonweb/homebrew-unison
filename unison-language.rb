@@ -4,7 +4,7 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 1
-  revision 1
+  revision 2
 
   if OS.mac?
     url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.20/ucm-macos.tar.gz"
@@ -38,7 +38,7 @@ class UnisonLanguage < Formula
         #!/bin/bash
 
         export PLTUSERHOME="#{pkgshare}/racket/home"
-        UCM_WEB_UI="#{opt_share}/ui" \\
+        UCM_WEB_UI="#{pkgshare}/ui" \\
           #{opt_libexec}/unison \\
             --runtime-path #{opt_libexec}/runtime/bin/unison-runtime \\
             "$@"
@@ -49,7 +49,7 @@ class UnisonLanguage < Formula
 
         # This installation is not set up for `compile.native`.
 
-        UCM_WEB_UI="#{opt_share}/ui" \\
+        UCM_WEB_UI="#{pkgshare}/ui" \\
           #{opt_libexec}/unison \\
             --runtime-path #{opt_libexec}/runtime/bin/unison-runtime \\
             "$@"
