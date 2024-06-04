@@ -11,7 +11,8 @@ brew install unison-language
 
 ## Troubleshooting
 
-unison-language: SHA256 mismatch fix
-    - `brew untap unisonweb/unison` 
-    - `brew tap unisonweb/unison`
-    - `brew install unison-language`
+unison-language: SHA256 mismatch fix:
+
+- `brew untap unisonweb/unison` 
+- `brew tap unisonweb/unison`
+- `brew install unison-language`
