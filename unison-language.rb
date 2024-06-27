@@ -6,12 +6,12 @@ class UnisonLanguage < Formula
   version_scheme 1
 
   if OS.mac?
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.21/ucm-macos.tar.gz"
-    sha256 "02d2e4cbc45ebd14406450331b3e14a968413fe426fe446ee1f313771f4a07ec"
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.23/ucm-macos.tar.gz"
+    sha256 "8e62e6c700a556d5fd60d6ae656930cace3f021567d46b5479caa3337e8a7d87"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos.tar.gz"
   elsif OS.linux?
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.21/ucm-linux.tar.gz"
-    sha256 "9e29e47d807d766383ebe2ec40d0c95bcf45af0667d86ad990b19b69f32cac78"
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.23/ucm-linux.tar.gz"
+    sha256 "0569bcae5374b1ad50150e55b48f77997e106af0e5abd431068d0591f5d047f9"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
   end
 
