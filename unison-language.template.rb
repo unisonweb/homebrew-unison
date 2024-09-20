@@ -5,18 +5,19 @@ class UnisonLanguage < Formula
 
   version_scheme 1
 
-  if OS.mac?
+  on_macos do
     url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-macos.tar.gz"
     sha256 "${macos_sha}"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos.tar.gz"
-  elsif OS.linux?
+  end
+
+  on_linux do
     url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux.tar.gz"
     sha256 "${linux_sha}"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
-  end
+end
 
   option "with-compile-native", "experimental support for `compile.native`"
-  depends_on "minimal-racket" if build.with? "compile-native"
   depends_on "fzf" => :recommended
 
   def install
@@ -25,18 +26,41 @@ class UnisonLanguage < Formula
     pkgshare.install "ui"
 
     if build.with? "compile-native"
-      pkgshare.install "racket"
-      ENV["PLTUSERHOME"] = pkgshare/"racket"/"home"
+      resource "minimal-racket" do
+        if OS.linux?
+          url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-x86_64-linux-cs.tgz"
+          sha256 "a1b5cab3adee21cd00219c7e85315c945db4eab11a6c80653db7687b11c993f0"
+        elsif OS.mac?
+          if Hardware::CPU.intel?
+            url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-x86_64-macosx-cs.tgz"
+            sha256 "168644f90c09b5474a84293e0f81a4b9b2c165cdabb3a5e595953f6b956ec1ed"
+          elsif Hardware::CPU.arm?
+            url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-aarch64-macosx-cs.tgz"
+            sha256 "5d3e0c94668889ffb744fa99f7e787b1352de6b30587665cf0a80d34f02e421a"
+          end
+        else
+          odie "Unsupported OS"
+        end
+      end
+
+      resource("minimal-racket").stage do
+        (libexec/"racket").install Dir["*"]
+      end
+
+      raco = "#{libexec}/racket/bin/raco"
+
       ohai "Installing Racket unison library"
-      ohai "#{pkgshare}/racket/unison.zip"
-      system "raco", "pkg", "install", "--scope", "user", "--auto", "#{pkgshare}/racket/unison.zip"
+      pkgshare.install "racket"
+      jitlib = "#{pkgshare}/racket/unison.zip"
+      system raco, "pkg", "install", "--scope", "installation", "--auto", jitlib
+
       ohai "Installing Racket compiler-lib library"
-      system "raco", "pkg", "install", "--scope", "user", "--auto", "--skip-installed", "compiler-lib"
+      system raco, "pkg", "install", "--scope", "installation", "--auto", "--skip-installed", "compiler-lib"
 
       (bin/"ucm").write <<~EOS
         #!/bin/bash
 
-        export PLTUSERHOME="#{pkgshare}/racket/home"
+        PATH="#{opt_libexec}/racket/bin:$PATH" \\
         UCM_WEB_UI="#{pkgshare}/ui" \\
           #{opt_libexec}/unison \\
             --runtime-path #{opt_libexec}/runtime/bin/unison-runtime \\
