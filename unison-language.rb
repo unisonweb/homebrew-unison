@@ -4,17 +4,16 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 1
-  revision 1
 
   on_macos do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.26/ucm-macos.tar.gz"
-    sha256 "445d90e6c0b14fd17720633ff143fa6c47bdb0e8eda4c5581d112e00f3b387c8"
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.27/ucm-macos.tar.gz"
+    sha256 "6e6126a31f827e41993fd1827f00f2b294ee96dd1657eea37d0cde853df7a7c5"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos.tar.gz"
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.26/ucm-linux.tar.gz"
-    sha256 "b74adcd5fe0f7e31d1bbfb73a16f2c27fe91d0a05b6103e2587aac21aa9cf926"
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.27/ucm-linux.tar.gz"
+    sha256 "8ececc8332504a1cbacf540db084708ed65facd386c14034d3549694a5a03280"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
 end
 
