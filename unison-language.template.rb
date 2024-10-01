@@ -84,7 +84,7 @@ end
     ohai "Setting up project and downloading base..."
     (testpath/"setup.md").write <<~EOS
       ```ucm
-      .> project.create proj
+      scratch/main> project.create proj
       ```
       ```unison
       helloWorld = do printLine "Hello, World!"
