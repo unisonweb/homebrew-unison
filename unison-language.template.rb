@@ -18,6 +18,9 @@ class UnisonLanguage < Formula
 end
 
   option "with-compile-native", "experimental support for `compile.native`"
+  if build.with? "compile-native"
+    depends_on "libb2"
+  end
   depends_on "fzf" => :recommended
 
   def install
@@ -45,6 +48,7 @@ end
 
       resource("minimal-racket").stage do
         (libexec/"racket").install Dir["*"]
+        (libexec/"racket/lib").install_symlink Formula["libb2"].lib/"libb2.1.dylib"
       end
 
       raco = "#{libexec}/racket/bin/raco"

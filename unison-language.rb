@@ -4,6 +4,7 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 1
+  revision 1
 
   on_macos do
     url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.27/ucm-macos.tar.gz"
@@ -19,6 +20,9 @@ end
 
   option "with-compile-native", "experimental support for `compile.native`"
   depends_on "fzf" => :recommended
+  if build.with? "compile-native"
+    depends_on "libb2"
+  end
 
   def install
     libexec.install "unison/unison"
@@ -45,6 +49,7 @@ end
 
       resource("minimal-racket").stage do
         (libexec/"racket").install Dir["*"]
+        (libexec/"racket/lib").install_symlink Formula["libb2"].lib/"libb2.1.dylib"
       end
 
       raco = "#{libexec}/racket/bin/raco"
