@@ -32,10 +32,11 @@ jobs:
             echo "Couldn't download release artifacts, release may not yet exist. Trying again in 5 minutes."
             sleep 300 # If we failed, wait for 5 minutes
           done
-          export linux_sha=$(shasum -a 256 < ucm-linux.tar.gz | cut -f1 -d" ")
-          export macos_sha=$(shasum -a 256 < ucm-macos.tar.gz | cut -f1 -d" ")
+          export linux_x64_sha=$(shasum -a 256 < ucm-linux-x64.tar.gz | cut -f1 -d" ")
+          export macos_x64_sha=$(shasum -a 256 < ucm-macos-x64.tar.gz | cut -f1 -d" ")
+          export macos_arm64_sha=$(shasum -a 256 < ucm-macos-arm64.tar.gz | cut -f1 -d" ")
           # Generate formula with correct version and SHAs.
-          envsubst '$version $linux_sha $macos_sha' < unison-language.template.rb > unison-language.rb
+          envsubst '$version $linux_x64_sha $macos_x64_sha $macos_arm64_sha' < unison-language.template.rb > unison-language.rb
           # Git complains if we don't have an author.
           git config --global user.email "Unison@unison.cloud"
           git config --global user.name "Unison Bot 🤖"

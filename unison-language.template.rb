@@ -6,16 +6,24 @@ class UnisonLanguage < Formula
   version_scheme 1
 
   on_macos do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-macos.tar.gz"
-    sha256 "${macos_sha}"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos.tar.gz"
+    if Hardware::CPU.intel?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-macos-x64.tar.gz"
+      sha256 "${macos_x64_sha}"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-x64.tar.gz"
+    elsif Hardware::CPU.arm?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-macos-arm64.tar.gz"
+      sha256 "${macos_arm64_sha}"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-arm64.tar.gz"
+    else
+      odie "Unsupported architecture for ucm"
+    end
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux.tar.gz"
-    sha256 "${linux_sha}"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
-end
+    url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux-x64.tar.gz"
+    sha256 "${linux_x64_sha}"
+    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+  end
 
   option "with-compile-native", "experimental support for `compile.native`"
   if build.with? "compile-native"
@@ -40,6 +48,8 @@ end
           elsif Hardware::CPU.arm?
             url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-aarch64-macosx-cs.tgz"
             sha256 "5d3e0c94668889ffb744fa99f7e787b1352de6b30587665cf0a80d34f02e421a"
+          else
+            odie "Unsupported architecture for racket"
           end
         else
           odie "Unsupported OS"
