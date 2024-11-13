@@ -4,25 +4,32 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 1
-  revision 1
 
   on_macos do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.27/ucm-macos.tar.gz"
-    sha256 "6e6126a31f827e41993fd1827f00f2b294ee96dd1657eea37d0cde853df7a7c5"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos.tar.gz"
+    if Hardware::CPU.intel?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.28/ucm-macos-x64.tar.gz"
+      sha256 "95ad71bbc1541e0fffde8d30fa285d92ba82e3e4d678205f650b37b8a23ecad0"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-x64.tar.gz"
+    elsif Hardware::CPU.arm?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.28/ucm-macos-arm64.tar.gz"
+      sha256 "914f83a9851840a6ec8b93f6eab2e47fc798117240970fa429de0ec19d8e3b40"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-arm64.tar.gz"
+    else
+      odie "Unsupported architecture for ucm"
+    end
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.27/ucm-linux.tar.gz"
-    sha256 "8ececc8332504a1cbacf540db084708ed65facd386c14034d3549694a5a03280"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux.tar.gz"
-end
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.28/ucm-linux-x64.tar.gz"
+    sha256 "031c35aa09d9df2a507e9c3b7ed1ff2f307549b4f1fb12f9ea1ab702db06aa4a"
+    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+  end
 
   option "with-compile-native", "experimental support for `compile.native`"
-  depends_on "fzf" => :recommended
   if build.with? "compile-native"
     depends_on "libb2"
   end
+  depends_on "fzf" => :recommended
 
   def install
     libexec.install "unison/unison"
@@ -41,6 +48,8 @@ end
           elsif Hardware::CPU.arm?
             url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-aarch64-macosx-cs.tgz"
             sha256 "5d3e0c94668889ffb744fa99f7e787b1352de6b30587665cf0a80d34f02e421a"
+          else
+            odie "Unsupported architecture for racket"
           end
         else
           odie "Unsupported OS"
