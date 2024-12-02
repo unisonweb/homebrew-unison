@@ -3,7 +3,8 @@ class UnisonLanguage < Formula
   homepage "https://unisonweb.org"
   license "MIT"
 
-  version_scheme 1
+  version_scheme 2
+  version "0.5.29"
 
   on_macos do
     if Hardware::CPU.intel?
