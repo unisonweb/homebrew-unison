@@ -4,16 +4,16 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 2
-  version "0.5.39"
+  version "0.5.40"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.39/ucm-macos-x64.tar.gz"
-      sha256 "d3587cc90af13806dfacc4f851c883311652abf85f0f3514bcdbd5308ca94588"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.40/ucm-macos-x64.tar.gz"
+      sha256 "4e90f65be8fb17cdc4f983d044d7b52bb7e735fa49130b76e65741fa7a90c3b2"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-x64.tar.gz"
     elsif Hardware::CPU.arm?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.39/ucm-macos-arm64.tar.gz"
-      sha256 "d1b310ef3e9f6dfbfc515f43ab2f886040145d40bb143f469da76d8330a2f064"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.40/ucm-macos-arm64.tar.gz"
+      sha256 "2acca93ca1f2b1c3a23d7cb865e099714146215f7b96c9cb444269e4a00615c3"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-arm64.tar.gz"
     else
       odie "Unsupported architecture for ucm"
@@ -21,8 +21,8 @@ class UnisonLanguage < Formula
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.39/ucm-linux-x64.tar.gz"
-    sha256 "9b057b886682bd31100460b3cb21e96647b8b2edd1e5b20a4fb74eefc20e31d6"
+    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.40/ucm-linux-x64.tar.gz"
+    sha256 "a35671f559a8be5d1bfd03154fd5c669133a16986c22c65065a998949e9beb2d"
     head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
   end
 
