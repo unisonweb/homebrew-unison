@@ -21,9 +21,17 @@ class UnisonLanguage < Formula
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux-x64.tar.gz"
-    sha256 "${linux_x64_sha}"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+    if Hardware::CPU.intel?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux-x64.tar.gz"
+      sha256 "${linux_x64_sha}"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+    elsif Hardware::CPU.arm?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F${version}/ucm-linux-arm64.tar.gz"
+      sha256 "${linux_arm64_sha}"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-arm64.tar.gz"
+    else
+      odie "Unsupported architecture for ucm"
+    end
   end
 
   option "with-compile-native", "experimental support for `compile.native`"
