@@ -5,6 +5,7 @@ class UnisonLanguage < Formula
 
   version_scheme 2
   version "0.5.43"
+  revision 1
 
   on_macos do
     if Hardware::CPU.intel?
@@ -38,7 +39,6 @@ class UnisonLanguage < Formula
 
   def install
     libexec.install "unison/unison"
-    libexec.install "runtime"
     pkgshare.install "ui"
 
     (bin/"ucm").write <<~EOS

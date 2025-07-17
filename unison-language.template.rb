@@ -38,7 +38,6 @@ class UnisonLanguage < Formula
 
   def install
     libexec.install "unison/unison"
-    libexec.install "runtime"
     pkgshare.install "ui"
 
     (bin/"ucm").write <<~EOS
