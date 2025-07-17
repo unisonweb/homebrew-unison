@@ -4,16 +4,16 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 2
-  version "0.5.42"
+  version "0.5.43"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.42/ucm-macos-x64.tar.gz"
-      sha256 "0c52038932d3dc9cc074137daa05db536adb61ada83b503134ef91de08b3c952"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.43/ucm-macos-x64.tar.gz"
+      sha256 "720a238be1608206de85c48264ecbda744af985ae188beca0f2f8bfa15b0e3a5"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-x64.tar.gz"
     elsif Hardware::CPU.arm?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.42/ucm-macos-arm64.tar.gz"
-      sha256 "40f51b253a5dbd742f23bcdc36740bae88ce2c2a7e92970f31ce5a1e49cce539"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.43/ucm-macos-arm64.tar.gz"
+      sha256 "b52c2ae2112adb3943c1d64295bb0eed726ca801c88f5412363a812e551b10cc"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-arm64.tar.gz"
     else
       odie "Unsupported architecture for ucm"
@@ -21,15 +21,19 @@ class UnisonLanguage < Formula
   end
 
   on_linux do
-    url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.42/ucm-linux-x64.tar.gz"
-    sha256 "343224d14b16ee03a484927b603636475649dbaba2ac6d5360f3be9c6cd1eb53"
-    head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+    if Hardware::CPU.intel?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.43/ucm-linux-x64.tar.gz"
+      sha256 "6ffd8643c97649642bbc9cdf22f1757fb0bbdc887c3817471d07c1c452c31ebb"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
+    elsif Hardware::CPU.arm?
+      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.43/ucm-linux-arm64.tar.gz"
+      sha256 "30134198770ef6b2c0e682d6a29591ba0f33f78863b05b8d97afd8e9b954f45d"
+      head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-arm64.tar.gz"
+    else
+      odie "Unsupported architecture for ucm"
+    end
   end
 
-  option "with-compile-native", "experimental support for `compile.native`"
-  if build.with? "compile-native"
-    depends_on "libb2"
-  end
   depends_on "fzf" => :recommended
 
   def install
@@ -37,62 +41,13 @@ class UnisonLanguage < Formula
     libexec.install "runtime"
     pkgshare.install "ui"
 
-    if build.with? "compile-native"
-      resource "minimal-racket" do
-        if OS.linux?
-          url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-x86_64-linux-cs.tgz"
-          sha256 "a1b5cab3adee21cd00219c7e85315c945db4eab11a6c80653db7687b11c993f0"
-        elsif OS.mac?
-          if Hardware::CPU.intel?
-            url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-x86_64-macosx-cs.tgz"
-            sha256 "168644f90c09b5474a84293e0f81a4b9b2c165cdabb3a5e595953f6b956ec1ed"
-          elsif Hardware::CPU.arm?
-            url "https://download.racket-lang.org/releases/8.14/installers/racket-minimal-8.14-aarch64-macosx-cs.tgz"
-            sha256 "5d3e0c94668889ffb744fa99f7e787b1352de6b30587665cf0a80d34f02e421a"
-          else
-            odie "Unsupported architecture for racket"
-          end
-        else
-          odie "Unsupported OS"
-        end
-      end
+    (bin/"ucm").write <<~EOS
+      #!/bin/bash
 
-      resource("minimal-racket").stage do
-        (libexec/"racket").install Dir["*"]
-        (libexec/"racket/lib").install_symlink Formula["libb2"].lib/"libb2.1.dylib"
-      end
-
-      raco = "#{libexec}/racket/bin/raco"
-
-      ohai "Installing Racket unison library"
-      pkgshare.install "racket"
-      jitlib = "#{pkgshare}/racket/unison.zip"
-      system raco, "pkg", "install", "--scope", "installation", "--auto", jitlib
-
-      ohai "Installing Racket compiler-lib library"
-      system raco, "pkg", "install", "--scope", "installation", "--auto", "--skip-installed", "compiler-lib"
-
-      (bin/"ucm").write <<~EOS
-        #!/bin/bash
-
-        PATH="#{opt_libexec}/racket/bin:$PATH" \\
-        UCM_WEB_UI="#{pkgshare}/ui" \\
-          #{opt_libexec}/unison \\
-            --runtime-path #{opt_libexec}/runtime/bin/unison-runtime \\
-            "$@"
-      EOS
-    else
-      (bin/"ucm").write <<~EOS
-        #!/bin/bash
-
-        # This installation is not set up for `compile.native`.
-
-        UCM_WEB_UI="#{pkgshare}/ui" \\
-          #{opt_libexec}/unison \\
-            --runtime-path #{opt_libexec}/runtime/bin/unison-runtime \\
-            "$@"
-      EOS
-    end
+      UCM_WEB_UI="#{pkgshare}/ui" \\
+        #{opt_libexec}/unison \\
+          "$@"
+    EOS
   end
 
   test do
@@ -115,23 +70,7 @@ class UnisonLanguage < Formula
       ```ucm
       proj/main> run helloWorld
       ```
-      ```ucm
-      proj/main> run.native helloWorld
-      ```
     EOS
     system "ucm", "transcript.fork", "--codebase", testpath/"codebase", testpath/"run.md"
-
-    if build.with? "compile-native"
-      ohai "Compiling helloWorld..."
-      (testpath/"compile.md").write <<~EOS
-        ```ucm
-        proj/main> compile.native helloWorld #{testpath/"helloWorld"}
-        ```
-      EOS
-      system "ucm", "transcript.fork", "--codebase", testpath/"codebase", testpath/"compile.md"
-      assert_match "Hello, World!\n", shell_output("#{testpath}/helloWorld")
-    else
-      ohai "Skipping `compile.native` test, as it requires `--with-compile-native`."
-    end
   end
 end
