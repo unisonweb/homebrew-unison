@@ -4,16 +4,16 @@ class UnisonLanguage < Formula
   license "MIT"
 
   version_scheme 2
-  version "0.5.50"
+  version "1.0.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.50/ucm-macos-x64.tar.gz"
-      sha256 "1505f398bbd7e0073846d39b2d546378c356d82628c21f04abcee61f64bdf960"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F1.0.0/ucm-macos-x64.tar.gz"
+      sha256 "7521559c7990610aa98a62a49da1fd5c2f17f0fd038e015d71ae379599e6cdb1"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-x64.tar.gz"
     elsif Hardware::CPU.arm?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.50/ucm-macos-arm64.tar.gz"
-      sha256 "874ac0ee90879bd0ed0fbfd93b85ec0ac72f2a1ff0abdbd6c1c33629e9684aa7"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F1.0.0/ucm-macos-arm64.tar.gz"
+      sha256 "94214bd742b34b61e8136c441c4d6b990ce1c11ecba455e2351ee64998f4083c"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-macos-arm64.tar.gz"
     else
       odie "Unsupported architecture for ucm"
@@ -22,12 +22,12 @@ class UnisonLanguage < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.50/ucm-linux-x64.tar.gz"
-      sha256 "5eeb6262bd31e0f4f8495003ba7f32989a4f817f1ae1a12a5610f612a8a44645"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F1.0.0/ucm-linux-x64.tar.gz"
+      sha256 "44ac79fba0ac2efad394b2ab78a4a780f346d18d0ea2699e52899721cd1e86c6"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-x64.tar.gz"
     elsif Hardware::CPU.arm?
-      url "https://github.com/unisonweb/unison/releases/download/release%2F0.5.50/ucm-linux-arm64.tar.gz"
-      sha256 "09bdb91a122660f85f4ff55b638805154d4f5048fcef3d6a8b476592f1624fff"
+      url "https://github.com/unisonweb/unison/releases/download/release%2F1.0.0/ucm-linux-arm64.tar.gz"
+      sha256 "4da74de2db930220f04d8e93a3392470fcd0a49cbe3e27b47025e877be454643"
       head "https://github.com/unisonweb/unison/releases/download/trunk-build/ucm-linux-arm64.tar.gz"
     else
       odie "Unsupported architecture for ucm"
