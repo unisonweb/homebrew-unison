@@ -5,6 +5,7 @@ class UnisonLanguage < Formula
 
   version_scheme 2
   version "1.0.0"
+  revision 1
 
   on_macos do
     if Hardware::CPU.intel?
